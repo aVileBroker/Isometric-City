@@ -6,7 +6,7 @@ import { useControl } from "react-three-gui";
 import {
   EffectComposer,
   DepthOfField,
-  Bloom,
+  // Bloom,
   Vignette,
   SSAO,
   // Noise,
@@ -32,7 +32,11 @@ import {
 // RectAreaLightUniformsLib.init();
 
 export default () => {
-  const distance = useControl("DoF Distance", { type: "number", max: 100 });
+  const distance = useControl("DoF Distance", {
+    type: "number",
+    value: 0,
+    max: 150,
+  });
   console.log(distance);
 
   return (
@@ -53,7 +57,7 @@ export default () => {
       <fog attach="fog" args={["#DDF", 80, 500]} />
 
       {/* Ambient */}
-      <ambientLight intensity={0.7} color="#DDF" />
+      <ambientLight intensity={0.6} color="#DDF" />
       {/* Sun light */}
       <directionalLight
         position={[-15, 5, -10]}
@@ -62,7 +66,7 @@ export default () => {
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
-        shadow-camera-far={500}
+        shadow-camera-far={200}
         shadow-camera-near={5}
         shadow-camera-left={-200}
         shadow-camera-right={200}
@@ -96,11 +100,11 @@ export default () => {
         <EffectComposer multisampling={0}>
           <DepthOfField
             focusDistance={distance}
-            focalLength={0.1}
-            bokehScale={5}
-            height={240}
+            focalLength={0.02}
+            bokehScale={4}
+            height={480}
           />
-          <Bloom intensity={0.5} />
+          {/* <Bloom intensity={0.5} /> */}
           {/* <Noise opacity={0.1} /> */}
           <Vignette />
           <SSAO
