@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { useControl } from "react-three-gui";
 import {
   EffectComposer,
-  DepthOfField,
+  // DepthOfField,
   Bloom,
   Vignette,
   SSAO,
@@ -19,7 +19,7 @@ import {
   // useFrame
 } from "react-three-fiber";
 import {
-  softShadows,
+  // softShadows,
   ContactShadows,
   Stats,
   Box,
@@ -28,11 +28,11 @@ import {
 } from "drei";
 // import { RectAreaLightUniformsLib } from "three/examples/jsm/lights/RectAreaLightUniformsLib.js";
 
-softShadows({});
+// softShadows({});
 // RectAreaLightUniformsLib.init();
 
 export default () => {
-  const distance = useControl("DoF Distance", { type: "number", max: 50 });
+  const distance = useControl("DoF Distance", { type: "number", max: 15 });
   console.log(distance);
   return (
     <Canvas
@@ -47,12 +47,12 @@ export default () => {
       <fog attach="fog" args={["#DDF", 40, 100]} />
 
       {/* Ambient */}
-      <ambientLight intensity={0.4} color="#DDF" />
+      <ambientLight intensity={1} color="#DDF" />
       {/* Sun light */}
       <directionalLight
         position={[-10, 5, -10]}
         color="#FF5"
-        intensity={10}
+        intensity={1}
         castShadow
         // shadow-mapSize-width={2048}
         // shadow-mapSize-height={2048}
@@ -75,7 +75,7 @@ export default () => {
           rotation={[Math.PI / -2, 0, 0]}
           receiveShadow
         >
-          <meshPhysicalMaterial color="#333" />
+          <meshPhysicalMaterial color="#393" />
         </Plane>
 
         <ContactShadows
@@ -88,12 +88,12 @@ export default () => {
           far={9}
         />
         <EffectComposer multisampling={0}>
-          <DepthOfField
+          {/* <DepthOfField
             focusDistance={distance}
             focalLength={0.01}
             bokehScale={2}
-          />
-          <Bloom intensity={0.25} />
+          /> */}
+          <Bloom intensity={0.5} />
           {/* <Noise opacity={0.1} /> */}
           <Vignette />
           <SSAO
