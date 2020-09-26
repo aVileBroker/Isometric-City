@@ -60,14 +60,14 @@ export default () => {
         color="#FF5"
         intensity={1}
         castShadow
-        // shadow-mapSize-width={2048}
-        // shadow-mapSize-height={2048}
-        // shadow-camera-far={50}
-        // shadow-camera-near={0}
-        // shadow-camera-left={-10}
-        // shadow-camera-right={10}
-        // shadow-camera-top={10}
-        // shadow-camera-bottom={-10}
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+        shadow-camera-far={500}
+        shadow-camera-near={5}
+        shadow-camera-left={-200}
+        shadow-camera-right={200}
+        shadow-camera-top={50}
+        shadow-camera-bottom={0}
       />
 
       <Suspense fallback={null}>
@@ -96,8 +96,9 @@ export default () => {
         <EffectComposer multisampling={0}>
           <DepthOfField
             focusDistance={distance}
-            focalLength={0.01}
-            bokehScale={2}
+            focalLength={0.1}
+            bokehScale={5}
+            height={240}
           />
           <Bloom intensity={0.5} />
           {/* <Noise opacity={0.1} /> */}
