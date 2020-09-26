@@ -5,14 +5,14 @@ import { Suspense } from "react";
 import { useControl } from "react-three-gui";
 import {
   EffectComposer,
-  // DepthOfField,
+  DepthOfField,
   Bloom,
   Vignette,
   SSAO,
   // Noise,
-  // SMAA,
+  SMAA,
 } from "react-postprocessing";
-// import { EdgeDetectionMode } from "postprocessing";
+import { EdgeDetectionMode } from "postprocessing";
 
 import {
   Canvas,
@@ -32,10 +32,16 @@ import {
 // RectAreaLightUniformsLib.init();
 
 export default () => {
-  const distance = useControl("DoF Distance", { type: "number", max: 15 });
+  const distance = useControl("DoF Distance", { type: "number", max: 100 });
   console.log(distance);
+
   return (
     <Canvas
+      camera={{
+        position: [50, 20, 50],
+        zoom: 30,
+      }}
+      orthographic
       colorManagement
       shadowMap
       pixelRatio={window.devicePixelRatio}
@@ -44,13 +50,13 @@ export default () => {
       <OrbitControls />
       <Stats />
       <color attach="background" args={[0.7, 0.7, 1]} />
-      <fog attach="fog" args={["#DDF", 40, 100]} />
+      <fog attach="fog" args={["#DDF", 80, 500]} />
 
       {/* Ambient */}
-      <ambientLight intensity={1} color="#DDF" />
+      <ambientLight intensity={0.7} color="#DDF" />
       {/* Sun light */}
       <directionalLight
-        position={[-10, 5, -10]}
+        position={[-15, 5, -10]}
         color="#FF5"
         intensity={1}
         castShadow
@@ -65,13 +71,13 @@ export default () => {
       />
 
       <Suspense fallback={null}>
-        <Box position={[0, 0, 0]} castShadow>
+        <Box position={[0, 6, 0]} args={[10, 12, 10]} castShadow>
           <meshPhysicalMaterial color="white" />
         </Box>
 
         <Plane
-          position={[0, -0.5, 0]}
-          scale={[10, 10, 10]}
+          position={[0, -0.01, 0]}
+          scale={[100, 100, 100]}
           rotation={[Math.PI / -2, 0, 0]}
           receiveShadow
         >
@@ -80,19 +86,19 @@ export default () => {
 
         <ContactShadows
           rotation={[Math.PI / 2, 0, 0]}
-          position={[0, -7, 0]}
-          opacity={1}
+          position={[0, 0, 0]}
+          opacity={0.7}
           width={40}
           height={40}
           blur={1}
           far={9}
         />
         <EffectComposer multisampling={0}>
-          {/* <DepthOfField
+          <DepthOfField
             focusDistance={distance}
             focalLength={0.01}
             bokehScale={2}
-          /> */}
+          />
           <Bloom intensity={0.5} />
           {/* <Noise opacity={0.1} /> */}
           <Vignette />
@@ -105,7 +111,7 @@ export default () => {
             scale={0.5}
             bias={0.5}
           />
-          {/* <SMAA edgeDetectionMode={EdgeDetectionMode.DEPTH} /> */}
+          <SMAA edgeDetectionMode={EdgeDetectionMode.DEPTH} />
         </EffectComposer>
       </Suspense>
     </Canvas>
