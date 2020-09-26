@@ -34,7 +34,7 @@ import {
 export default () => {
   const distance = useControl("DoF Distance", {
     type: "number",
-    value: 0,
+    value: 10,
     max: 150,
   });
   console.log(distance);
@@ -42,8 +42,9 @@ export default () => {
   return (
     <Canvas
       camera={{
-        position: [50, 20, 50],
-        zoom: 30,
+        position: [100, 40, 100],
+        focus: distance,
+        zoom: 20,
       }}
       orthographic
       colorManagement
@@ -81,7 +82,7 @@ export default () => {
 
         <Plane
           position={[0, -0.01, 0]}
-          scale={[100, 100, 100]}
+          scale={[200, 200, 200]}
           rotation={[Math.PI / -2, 0, 0]}
           receiveShadow
         >
@@ -100,9 +101,9 @@ export default () => {
         <EffectComposer multisampling={0}>
           <DepthOfField
             focusDistance={distance}
-            focalLength={0.02}
+            focalLength={0.5}
             bokehScale={4}
-            height={480}
+            height={240}
           />
           {/* <Bloom intensity={0.5} /> */}
           {/* <Noise opacity={0.1} /> */}
