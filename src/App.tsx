@@ -1,11 +1,10 @@
 import React from "react";
-import { ControlsProvider, Controls } from "react-three-gui";
+import { Provider } from "jotai";
 
 import Scene from "./Scene";
 
 export default () => (
-  <ControlsProvider>
+  <Provider>
     <Scene />
-    <Controls />
-  </ControlsProvider>
+  </Provider>
 );

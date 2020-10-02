@@ -10,6 +10,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "drei": "^1.5.3",
+    "jotai": "^0.7.3",
     "polished": "^3.6.5",
     "postprocessing": "^6.17.3",
     "prettier": "^2.1.1",
