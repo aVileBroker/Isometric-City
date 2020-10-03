@@ -16,14 +16,14 @@ export default ({
   const { nodes } = useLoader(GLTFLoader, `../models/parking-meter.glb`);
 
   const [{ scale }, set] = useSpring(() => ({
-    scale: 1,
+    scale: 0,
   }));
 
   useEffect(() => {
     set({ scale: 1 });
   }, [set]);
 
-  console.log(nodes);
+  console.log(scale.value);
 
   return (
     <a.group

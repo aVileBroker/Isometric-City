@@ -15,6 +15,59 @@ import Effects from "./Effects";
 export const focalDistanceAtom = atom([0, 0, 0]);
 const orthographic = true;
 
+const cityLayout = [
+  ["road-ns", "apt", "apt", "road-ns", "apt", "apt", "road-ns"],
+  ["road-ns", "apt", "apt", "road-ns", "apt", "apt", "road-ns"],
+  [
+    "road-nsew",
+    "road-ew",
+    "road-ew",
+    "road-nsew",
+    "road-ew",
+    "road-ew",
+    "road-nsew",
+  ],
+  ["road-ns", "apt", "apt", "road-ns", "apt", "apt", "road-ns"],
+  ["road-ns", "apt", "apt", "road-ns", "apt", "apt", "road-ns"],
+];
+
+const getLot = (lot: string | null, rowInd: number, colInd: number) => {
+  switch (lot) {
+    case "apt":
+      return (
+        <Building
+          position={[colInd * 30 - 60, 0, rowInd * 30 - 60]}
+          rotation={[0, Math.PI, 0]}
+        />
+      );
+    case "road-ns":
+      return (
+        <Road
+          position={[colInd * 30 - 60, 0.1, rowInd * 30 - 60]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+      );
+    case "road-ew":
+      return (
+        <Road
+          position={[colInd * 30 - 60, 0.1, rowInd * 30 - 60]}
+          rotation={[0, 0, 0]}
+        />
+      );
+    case "road-nsew":
+      return (
+        <Road
+          position={[colInd * 30 - 60, 0.1, rowInd * 30 - 60]}
+          rotation={[0, 0, 0]}
+          type="intersection"
+        />
+      );
+
+    default:
+      return null;
+  }
+};
+
 export default () => {
   return (
     <Canvas
@@ -55,31 +108,10 @@ export default () => {
 
       <Suspense fallback={null}>
         <Bridge value={useBridge()}>
-          <Building position={[-60, 0, -30]} rotation={[0, Math.PI, 0]} />
-          <Building position={[-30, 0, -30]} rotation={[0, Math.PI, 0]} />
-
-          <Building position={[30, 0, -30]} rotation={[0, Math.PI, 0]} />
-          <Building position={[60, 0, -30]} rotation={[0, Math.PI, 0]} />
-
-          <Building position={[-60, 0, 30]} />
-          <Building position={[-30, 0, 30]} />
-
-          <Building position={[30, 0, 30]} />
-          <Building position={[60, 0, 30]} />
-
-          <Road position={[-60, 0.1, 0]} />
-          <Road position={[-30, 0.1, 0]} />
-          <Road position={[0, 0.1, 0]} type="intersection" />
-          <Road position={[30, 0.1, 0]} />
-          <Road position={[60, 0.1, 0]} />
-
-          <Road position={[0, 0.1, -60]} rotation={[0, Math.PI / 2, 0]} />
-          <Road position={[0, 0.1, -30]} rotation={[0, Math.PI / 2, 0]} />
-
-          <Road position={[0, 0.1, 30]} rotation={[0, Math.PI / 2, 0]} />
-          <Road position={[0, 0.1, 60]} rotation={[0, Math.PI / 2, 0]} />
-
-          <ParkingMeter />
+          {cityLayout.map((row, rowInd) =>
+            row.map((lot, colInd) => getLot(lot, rowInd, colInd))
+          )}
+          <ParkingMeter position={[1, 1, 1]} />
         </Bridge>
 
         <Plane
