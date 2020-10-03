@@ -9,6 +9,7 @@ import camera from "./constants/camera";
 
 import Building from "./Objects/Building";
 import Road from "./Objects/Road";
+import ParkingMeter from "./Objects/ParkingMeter";
 import Effects from "./Effects";
 
 export const focalDistanceAtom = atom([0, 0, 0]);
@@ -18,7 +19,7 @@ export default () => {
   return (
     <Canvas
       camera={{
-        position: [-100, 40, -100],
+        position: [100, 90, -100],
         zoom: orthographic ? 10 : 1,
         near: camera.near,
         far: camera.far,
@@ -29,7 +30,7 @@ export default () => {
       pixelRatio={window.devicePixelRatio}
       style={{ height: "100vh", width: "100vw" }}
     >
-      <OrbitControls />
+      <OrbitControls enableKeys={false} maxPolarAngle={1} minPolarAngle={1} />
       <Stats />
       <color attach="background" args={[0.7, 0.7, 1]} />
       <fog attach="fog" args={["#DDF", 80, 500]} />
@@ -77,6 +78,8 @@ export default () => {
 
           <Road position={[0, 0.1, 30]} rotation={[0, Math.PI / 2, 0]} />
           <Road position={[0, 0.1, 60]} rotation={[0, Math.PI / 2, 0]} />
+
+          <ParkingMeter />
         </Bridge>
 
         <Plane
