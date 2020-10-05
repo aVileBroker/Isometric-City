@@ -53,11 +53,15 @@ export default ({
           <meshPhysicalMaterial attach="material" {...child.material} />
         </mesh>
       ))}
-      <ParkingMeter position={[-12, 0, 12]} />
-      <ParkingMeter position={[-6, 0, 12]} />
-      <ParkingMeter position={[0, 0, 12]} />
-      <ParkingMeter position={[6, 0, 12]} />
-      <ParkingMeter position={[12, 0, 12]} />
+      {type !== "intersection" && (
+        <>
+          <ParkingMeter position={[-12, 0, 12]} />
+          <ParkingMeter position={[-6, 0, 12]} />
+          <ParkingMeter position={[0, 0, 12]} />
+          <ParkingMeter position={[6, 0, 12]} />
+          <ParkingMeter position={[12, 0, 12]} />
+        </>
+      )}
     </group>
   );
 };

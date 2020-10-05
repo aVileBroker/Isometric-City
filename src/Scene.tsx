@@ -9,7 +9,6 @@ import camera from "./constants/camera";
 
 import Building from "./Objects/Building";
 import Road from "./Objects/Road";
-import ParkingMeter from "./Objects/ParkingMeter";
 import Effects from "./Effects";
 
 export const focalDistanceAtom = atom([0, 0, 0]);
@@ -77,6 +76,7 @@ export default () => {
         near: camera.near,
         far: camera.far,
       }}
+      invalidateFrameloop
       orthographic={orthographic}
       colorManagement
       shadowMap
@@ -111,7 +111,6 @@ export default () => {
           {cityLayout.map((row, rowInd) =>
             row.map((lot, colInd) => getLot(lot, rowInd, colInd))
           )}
-          <ParkingMeter position={[1, 1, 1]} />
         </Bridge>
 
         <Plane

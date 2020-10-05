@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import * as THREE from "three";
 import { useLoader } from "react-three-fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -12,26 +12,29 @@ export default ({
   position?: number[];
   rotation?: number[];
 }) => {
+  const meterRef = useRef();
   // @ts-ignore
   const { nodes } = useLoader(GLTFLoader, `../models/parking-meter.glb`);
 
-  const [{ scale }, set] = useSpring(() => ({
-    scale: 0,
+  const [,] = useSpring(() => ({
+    from: { scale: 0 },
+    to: { scale: 1 },
+    config: { tension: 500, friction: 15 },
+    delay: 500,
+    onFrame: ({ scale }: { scale: number }) => {
+      // @ts-ignore
+      meterRef.current.scale.set(scale, scale, scale);
+    },
   }));
-
-  useEffect(() => {
-    set({ scale: 1 });
-  }, [set]);
-
-  console.log(scale.value);
 
   return (
     <a.group
       position={new THREE.Vector3(...position)}
       rotation={new THREE.Euler(...rotation)}
-      scale={[scale, scale, scale]}
+      scale={[0, 0, 0]}
+      ref={meterRef}
     >
-      {nodes.Scene.children[0].children.map((child: any) => (
+      {nodes.Scene.children.map((child: any) => (
         <mesh
           key={child.uuid}
           visible
