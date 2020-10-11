@@ -4,7 +4,7 @@ import { atom, Bridge, useBridge } from "jotai";
 
 import { MOUSE } from "three";
 import { Canvas } from "react-three-fiber";
-import { Stats, OrbitControls, Plane } from "drei";
+import { Stats, OrbitControls, Plane, useDetectGPU } from "drei";
 import { Physics } from "@react-three/cannon";
 
 import camera from "./constants/camera";
@@ -19,6 +19,15 @@ export const focalDistanceAtom = atom([0, 0, 0]);
 const orthographic = true;
 
 const cityLayout = [
+  [
+    "road-nsew",
+    "road-ew",
+    "road-ew",
+    "road-nsew",
+    "road-ew",
+    "road-ew",
+    "road-nsew",
+  ],
   ["road-ns", "apt", "apt", "road-ns", "apt", "apt", "road-ns"],
   ["road-ns", "apt", "apt", "road-ns", "apt", "apt", "road-ns"],
   [
@@ -32,35 +41,62 @@ const cityLayout = [
   ],
   ["road-ns", "apt", "apt", "road-ns", "apt", "apt", "road-ns"],
   ["road-ns", "apt", "apt", "road-ns", "apt", "apt", "road-ns"],
+  [
+    "road-nsew",
+    "road-ew",
+    "road-ew",
+    "road-nsew",
+    "road-ew",
+    "road-ew",
+    "road-nsew",
+  ],
 ];
 
 const getLot = (lot: string | null, rowInd: number, colInd: number) => {
+  const cityLength = cityLayout.length * 30;
+  const cityWidth = cityLayout[0].length * 30;
   switch (lot) {
     case "apt":
       return (
         <Building
-          position={[colInd * 30 - 60, 0, rowInd * 30 - 60]}
+          position={[
+            colInd * 30 - cityWidth / 2,
+            0,
+            rowInd * 30 - cityLength / 2,
+          ]}
           rotation={[0, Math.PI, 0]}
         />
       );
     case "road-ns":
       return (
         <Road
-          position={[colInd * 30 - 60, 0.1, rowInd * 30 - 60]}
+          position={[
+            colInd * 30 - cityWidth / 2,
+            0.1,
+            rowInd * 30 - cityLength / 2,
+          ]}
           rotation={[0, Math.PI / 2, 0]}
         />
       );
     case "road-ew":
       return (
         <Road
-          position={[colInd * 30 - 60, 0.1, rowInd * 30 - 60]}
+          position={[
+            colInd * 30 - cityWidth / 2,
+            0.1,
+            rowInd * 30 - cityLength / 2,
+          ]}
           rotation={[0, 0, 0]}
         />
       );
     case "road-nsew":
       return (
         <Road
-          position={[colInd * 30 - 60, 0.1, rowInd * 30 - 60]}
+          position={[
+            colInd * 30 - cityWidth / 2,
+            0.1,
+            rowInd * 30 - cityLength / 2,
+          ]}
           rotation={[0, 0, 0]}
           type="intersection"
         />
@@ -72,6 +108,9 @@ const getLot = (lot: string | null, rowInd: number, colInd: number) => {
 };
 
 export default () => {
+  // @ts-ignore
+  const detectedGPU = useDetectGPU();
+
   return (
     <Canvas
       camera={{
@@ -268,7 +307,9 @@ export default () => {
             blur={1}
             far={9}
           /> */}
-          <Effects />
+          {detectedGPU &&
+            Number(detectedGPU.tier) > 2 &&
+            !detectedGPU.isMobile && <Effects />}
         </Bridge>
       </Suspense>
     </Canvas>
