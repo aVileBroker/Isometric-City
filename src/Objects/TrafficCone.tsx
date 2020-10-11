@@ -16,8 +16,8 @@ export default ({
     position,
     rotation,
     ...props,
-    mass: 2,
-    material: { restitution: 10 },
+    mass: 1,
+    material: { restitution: 1.5 },
   }));
 
   // @ts-ignore

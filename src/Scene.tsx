@@ -4,7 +4,7 @@ import { atom, Bridge, useBridge } from "jotai";
 
 import { MOUSE } from "three";
 import { Canvas } from "react-three-fiber";
-import { Stats, OrbitControls } from "drei";
+import { Stats, OrbitControls, Plane } from "drei";
 import { Physics } from "@react-three/cannon";
 
 import camera from "./constants/camera";
@@ -127,15 +127,20 @@ export default () => {
           )}
 
           <Physics size={100}>
-            <GroundPlane
+            <Plane
               position={[0, -0.01, 0]}
+              scale={[500, 500, 500]}
               rotation={[Math.PI / -2, 0, 0]}
-            />
+              receiveShadow
+            >
+              <meshPhysicalMaterial color="#393" />
+            </Plane>
+            <GroundPlane rotation={[Math.PI / -2, 0, 0]} />
             <TrafficCone
               position={[
                 Math.random() * 10,
-                Math.random() * 20,
-                Math.random() * 10,
+                Math.random() * 20 + 5,
+                Math.random() * 30 - 15,
               ]}
               rotation={[
                 Math.random() * Math.PI,
@@ -146,8 +151,8 @@ export default () => {
             <TrafficCone
               position={[
                 Math.random() * 10,
-                Math.random() * 20,
-                Math.random() * 10,
+                Math.random() * 20 + 5,
+                Math.random() * 30 - 15,
               ]}
               rotation={[
                 Math.random() * Math.PI,
@@ -158,8 +163,8 @@ export default () => {
             <TrafficCone
               position={[
                 Math.random() * 10,
-                Math.random() * 20,
-                Math.random() * 10,
+                Math.random() * 20 + 5,
+                Math.random() * 30 - 15,
               ]}
               rotation={[
                 Math.random() * Math.PI,
@@ -170,8 +175,8 @@ export default () => {
             <TrafficCone
               position={[
                 Math.random() * 10,
-                Math.random() * 20,
-                Math.random() * 10,
+                Math.random() * 20 + 5,
+                Math.random() * 30 - 15,
               ]}
               rotation={[
                 Math.random() * Math.PI,
@@ -182,8 +187,8 @@ export default () => {
             <TrafficCone
               position={[
                 Math.random() * 10,
-                Math.random() * 20,
-                Math.random() * 10,
+                Math.random() * 20 + 5,
+                Math.random() * 30 - 15,
               ]}
               rotation={[
                 Math.random() * Math.PI,
@@ -194,8 +199,8 @@ export default () => {
             <TrafficCone
               position={[
                 Math.random() * 10,
-                Math.random() * 20,
-                Math.random() * 10,
+                Math.random() * 20 + 5,
+                Math.random() * 30 - 15,
               ]}
               rotation={[
                 Math.random() * Math.PI,
@@ -206,8 +211,8 @@ export default () => {
             <TrafficCone
               position={[
                 Math.random() * 10,
-                Math.random() * 20,
-                Math.random() * 10,
+                Math.random() * 20 + 5,
+                Math.random() * 30 - 15,
               ]}
               rotation={[
                 Math.random() * Math.PI,
@@ -218,8 +223,8 @@ export default () => {
             <TrafficCone
               position={[
                 Math.random() * 10,
-                Math.random() * 20,
-                Math.random() * 10,
+                Math.random() * 20 + 5,
+                Math.random() * 30 - 15,
               ]}
               rotation={[
                 Math.random() * Math.PI,
@@ -230,8 +235,8 @@ export default () => {
             <TrafficCone
               position={[
                 Math.random() * 10,
-                Math.random() * 20,
-                Math.random() * 10,
+                Math.random() * 20 + 5,
+                Math.random() * 30 - 15,
               ]}
               rotation={[
                 Math.random() * Math.PI,
@@ -242,8 +247,8 @@ export default () => {
             <TrafficCone
               position={[
                 Math.random() * 10,
-                Math.random() * 20,
-                Math.random() * 10,
+                Math.random() * 20 + 5,
+                Math.random() * 30 - 15,
               ]}
               rotation={[
                 Math.random() * Math.PI,
