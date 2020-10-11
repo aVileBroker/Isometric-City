@@ -112,8 +112,6 @@ const getLot = (lot: string | null, rowInd: number, colInd: number) => {
 export default () => {
   // @ts-ignore
   const detectedGPU = useDetectGPU();
-  const { objects } = useStore();
-  console.log(objects);
 
   return (
     <Canvas
@@ -179,6 +177,7 @@ export default () => {
               <meshPhysicalMaterial color="#393" />
             </Plane>
             <GroundPlane rotation={[Math.PI / -2, 0, 0]} />
+            <PhysicalObjectsLayer />
             <TrafficCone
               position={[
                 Math.random() * 10,
@@ -300,6 +299,7 @@ export default () => {
               ]}
             />
           </Physics>
+          <StaticObjectsLayer />
           {detectedGPU &&
             Number(detectedGPU.tier) > 2 &&
             !detectedGPU.isMobile && <Effects />}
