@@ -6,6 +6,7 @@
     "@headstorm/hs-react-ui": "1.0.0-v1-release.19",
     "@mdi/js": "^5.5.55",
     "@mdi/react": "^1.4.0",
+    "@react-three/cannon": "^0.5.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",

@@ -2,13 +2,17 @@ import * as React from "react";
 import { Suspense } from "react";
 import { atom, Bridge, useBridge } from "jotai";
 
+import { MOUSE } from "three";
 import { Canvas } from "react-three-fiber";
-import { Stats, OrbitControls, Plane } from "drei";
+import { Stats, OrbitControls } from "drei";
+import { Physics } from "@react-three/cannon";
 
 import camera from "./constants/camera";
 
 import Building from "./Objects/Building";
+import GroundPlane from "./Objects/GroundPlane";
 import Road from "./Objects/Road";
+import TrafficCone from "./Objects/TrafficCone";
 import Effects from "./Effects";
 
 export const focalDistanceAtom = atom([0, 0, 0]);
@@ -76,14 +80,24 @@ export default () => {
         near: camera.near,
         far: camera.far,
       }}
-      invalidateFrameloop
+      // invalidateFrameloop
       orthographic={orthographic}
       colorManagement
       shadowMap
       pixelRatio={window.devicePixelRatio}
       style={{ height: "100vh", width: "100vw" }}
     >
-      <OrbitControls enableKeys={false} maxPolarAngle={1} minPolarAngle={1} />
+      <OrbitControls
+        enableKeys={false}
+        maxPolarAngle={1}
+        minPolarAngle={1}
+        enableZoom={false}
+        mouseButtons={{
+          LEFT: MOUSE.MIDDLE,
+          MIDDLE: MOUSE.RIGHT,
+          RIGHT: MOUSE.LEFT,
+        }}
+      />
       <Stats />
       <color attach="background" args={[0.7, 0.7, 1]} />
       <fog attach="fog" args={["#DDF", 80, 500]} />
@@ -111,28 +125,144 @@ export default () => {
           {cityLayout.map((row, rowInd) =>
             row.map((lot, colInd) => getLot(lot, rowInd, colInd))
           )}
-        </Bridge>
 
-        <Plane
-          position={[0, -0.01, 0]}
-          scale={[500, 500, 500]}
-          rotation={[Math.PI / -2, 0, 0]}
-          receiveShadow
-        >
-          <meshPhysicalMaterial color="#393" />
-        </Plane>
+          <Physics size={100}>
+            <GroundPlane
+              position={[0, -0.01, 0]}
+              rotation={[Math.PI / -2, 0, 0]}
+            />
+            <TrafficCone
+              position={[
+                Math.random() * 10,
+                Math.random() * 20,
+                Math.random() * 10,
+              ]}
+              rotation={[
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+              ]}
+            />
+            <TrafficCone
+              position={[
+                Math.random() * 10,
+                Math.random() * 20,
+                Math.random() * 10,
+              ]}
+              rotation={[
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+              ]}
+            />
+            <TrafficCone
+              position={[
+                Math.random() * 10,
+                Math.random() * 20,
+                Math.random() * 10,
+              ]}
+              rotation={[
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+              ]}
+            />
+            <TrafficCone
+              position={[
+                Math.random() * 10,
+                Math.random() * 20,
+                Math.random() * 10,
+              ]}
+              rotation={[
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+              ]}
+            />
+            <TrafficCone
+              position={[
+                Math.random() * 10,
+                Math.random() * 20,
+                Math.random() * 10,
+              ]}
+              rotation={[
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+              ]}
+            />
+            <TrafficCone
+              position={[
+                Math.random() * 10,
+                Math.random() * 20,
+                Math.random() * 10,
+              ]}
+              rotation={[
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+              ]}
+            />
+            <TrafficCone
+              position={[
+                Math.random() * 10,
+                Math.random() * 20,
+                Math.random() * 10,
+              ]}
+              rotation={[
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+              ]}
+            />
+            <TrafficCone
+              position={[
+                Math.random() * 10,
+                Math.random() * 20,
+                Math.random() * 10,
+              ]}
+              rotation={[
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+              ]}
+            />
+            <TrafficCone
+              position={[
+                Math.random() * 10,
+                Math.random() * 20,
+                Math.random() * 10,
+              ]}
+              rotation={[
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+              ]}
+            />
+            <TrafficCone
+              position={[
+                Math.random() * 10,
+                Math.random() * 20,
+                Math.random() * 10,
+              ]}
+              rotation={[
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+              ]}
+            />
+          </Physics>
 
-        {/* <ContactShadows
-          rotation={[Math.PI / 2, 0, 0]}
-          position={[0, 0, 0]}
-          scale={[10, 1, 10]}
-          opacity={0.7}
-          width={512}
-          height={512}
-          blur={1}
-          far={9}
-        /> */}
-        <Bridge value={useBridge()}>
+          {/* <ContactShadows
+            rotation={[Math.PI / 2, 0, 0]}
+            position={[0, 0, 0]}
+            scale={[10, 1, 10]}
+            opacity={0.7}
+            width={512}
+            height={512}
+            blur={1}
+            far={9}
+          /> */}
           <Effects />
         </Bridge>
       </Suspense>

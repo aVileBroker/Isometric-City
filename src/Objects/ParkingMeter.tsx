@@ -22,8 +22,10 @@ export default ({
     config: { tension: 500, friction: 15 },
     delay: 500,
     onFrame: ({ scale }: { scale: number }) => {
-      // @ts-ignore
-      meterRef.current.scale.set(scale, scale, scale);
+      if (meterRef.current) {
+        // @ts-ignore
+        meterRef.current.scale.set(scale, scale, scale);
+      }
     },
   }));
 
