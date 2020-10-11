@@ -94,8 +94,8 @@ export default () => {
         enableZoom={false}
         mouseButtons={{
           LEFT: MOUSE.MIDDLE,
-          MIDDLE: MOUSE.RIGHT,
-          RIGHT: MOUSE.LEFT,
+          MIDDLE: MOUSE.LEFT,
+          RIGHT: MOUSE.RIGHT,
         }}
       />
       <Stats />
