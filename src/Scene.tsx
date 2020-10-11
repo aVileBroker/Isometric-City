@@ -7,6 +7,7 @@ import { Canvas } from "react-three-fiber";
 import { Stats, OrbitControls, Plane, useDetectGPU } from "drei";
 import { Physics } from "@react-three/cannon";
 
+import useStore from "./utils/useStore";
 import camera from "./constants/camera";
 
 import Building from "./Objects/Building";
@@ -55,6 +56,7 @@ const cityLayout = [
 const getLot = (lot: string | null, rowInd: number, colInd: number) => {
   const cityLength = cityLayout.length * 30;
   const cityWidth = cityLayout[0].length * 30;
+
   switch (lot) {
     case "apt":
       return (
@@ -110,6 +112,8 @@ const getLot = (lot: string | null, rowInd: number, colInd: number) => {
 export default () => {
   // @ts-ignore
   const detectedGPU = useDetectGPU();
+  const { objects } = useStore();
+  console.log(objects);
 
   return (
     <Canvas
@@ -296,17 +300,6 @@ export default () => {
               ]}
             />
           </Physics>
-
-          {/* <ContactShadows
-            rotation={[Math.PI / 2, 0, 0]}
-            position={[0, 0, 0]}
-            scale={[10, 1, 10]}
-            opacity={0.7}
-            width={512}
-            height={512}
-            blur={1}
-            far={9}
-          /> */}
           {detectedGPU &&
             Number(detectedGPU.tier) > 2 &&
             !detectedGPU.isMobile && <Effects />}
