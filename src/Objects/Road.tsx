@@ -24,7 +24,7 @@ export default ({
   type?: string;
   curbs?: curbTypes[] | null[];
 }) => {
-  // @ts-ignore
+  // @ts-expect-error
   const { nodes } = useLoader(GLTFLoader, `../models/road-${type}.glb`);
   const [, setFocusPoint] = useAtom(focalDistanceAtom);
 

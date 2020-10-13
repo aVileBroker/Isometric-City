@@ -1,13 +1,13 @@
 import create from "zustand";
 
 export enum ObjectLayerType {
-  kinetic,
-  static,
+  kinetic = "kinetic",
+  static = "static",
 }
 
 export enum ObjectType {
-  cone,
-  foodTruck,
+  cone = "cone",
+  foodTruck = "foodTruck",
 }
 
 export type KurbObject = {
@@ -65,9 +65,8 @@ export default create<ObjectStore>((set) => ({
     set((state) => ({
       ...state,
       objects: {
-        // @ts-ignore
         ...state.objects,
-        [objectType]: [...state.objects[type], newObject],
+        [objectType]: [...state.objects[objectType], newObject],
       },
     })),
 }));

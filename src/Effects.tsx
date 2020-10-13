@@ -26,10 +26,6 @@ export default () => {
     if (dofRef && dofRef.current) {
       // @ts-ignore
       dofRef.current.target = new THREE.Vector3(...focalPoint);
-      // @ts-ignore
-      // dofRef.current.needsUpdate = true;
-      // @ts-ignore
-      console.log(dofRef.current);
     }
   }, [dofRef, focalPoint]);
 
@@ -37,7 +33,7 @@ export default () => {
     <EffectComposer multisampling={0}>
       <DepthOfField
         /*
-        // @ts-ignore */
+        // @ts-expect-error */
         ref={dofRef}
         focalLength={0.15}
         bokehScale={4}
@@ -45,7 +41,7 @@ export default () => {
       />
       <Bloom intensity={0.7} luminanceThreshold={0.7} />
       <SSAO
-        // @ts-ignore
+        // @ts-expect-error
         samples={25}
         intensity={40}
         luminanceInfluence={0.25}

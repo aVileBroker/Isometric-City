@@ -112,7 +112,7 @@ const getLot = (lot: string | null, rowInd: number, colInd: number) => {
 };
 
 export default () => {
-  // @ts-ignore
+  // @ts-expect-error
   const detectedGPU = useDetectGPU();
 
   return (

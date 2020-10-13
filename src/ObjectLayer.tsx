@@ -14,7 +14,13 @@ type ObjectLayer = {
 const getObjectComponent = (obj: KurbObject) => {
   switch (obj.type) {
     case ObjectType.cone:
-      return <TrafficCone {...obj} />;
+      return (
+        <TrafficCone
+          position={obj.position}
+          rotation={obj.rotation}
+          key={obj.id}
+        />
+      );
   }
 
   return null;
@@ -26,6 +32,9 @@ export default ({ objectTypeFilter }: ObjectLayer) => {
   console.log(filteredObjects);
 
   return (
-    <>{filteredObjects.map((obj: KurbObject) => getObjectComponent(obj))}</>
+    <>
+      {filteredObjects &&
+        filteredObjects.map((obj: KurbObject) => getObjectComponent(obj))}
+    </>
   );
 };

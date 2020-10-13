@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import * as THREE from "three";
 import { useLoader } from "react-three-fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-// @ts-ignore
+// @ts-expect-error
 import { a, useSpring } from "react-spring/three";
 
 export default ({
@@ -13,7 +13,7 @@ export default ({
   rotation?: number[];
 }) => {
   const meterRef = useRef();
-  // @ts-ignore
+  // @ts-expect-error
   const { nodes } = useLoader(GLTFLoader, `../models/parking-meter.glb`);
 
   const [,] = useSpring(() => ({
@@ -23,7 +23,7 @@ export default ({
     delay: 500,
     onFrame: ({ scale }: { scale: number }) => {
       if (meterRef.current) {
-        // @ts-ignore
+        // @ts-expect-error
         meterRef.current.scale.set(scale, scale, scale);
       }
     },

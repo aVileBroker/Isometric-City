@@ -13,7 +13,7 @@ export default ({
   position?: number[];
   rotation?: number[];
 }) => {
-  // @ts-ignore
+  // @ts-expect-error
   const { nodes } = useLoader(GLTFLoader, "../models/apartment-building.glb");
 
   const [, setFocusPoint] = useAtom(focalDistanceAtom);

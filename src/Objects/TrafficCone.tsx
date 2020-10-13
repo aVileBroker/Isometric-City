@@ -20,8 +20,10 @@ export default ({
     material: { restitution: 1.5 },
   }));
 
-  // @ts-ignore
+  // @ts-expect-error
   const { nodes } = useLoader(GLTFLoader, `../models/traffic-cone.glb`);
+
+  console.log(coneRef);
 
   return (
     <group ref={coneRef}>
