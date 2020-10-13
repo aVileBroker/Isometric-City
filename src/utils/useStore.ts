@@ -1,15 +1,67 @@
 import create from "zustand";
 
-interface KurbObject {
-  position: number[];
-  id: number;
+export enum ObjectLayerType {
+  kinetic,
+  static,
 }
 
-export default create((set) => ({
+export enum ObjectType {
+  cone,
+  foodTruck,
+}
+
+export type KurbObject = {
+  position: number[];
+  rotation?: number[];
+  type: ObjectType;
+  id: number | string;
+};
+
+export type ObjectTypeList = {
+  [K in ObjectLayerType]: KurbObject[];
+};
+
+export type ObjectStore = {
+  objects: ObjectTypeList;
+  addObject: (newObject: KurbObject, objectType: ObjectLayerType) => void;
+};
+
+export default create<ObjectStore>((set) => ({
   objects: {
-    cones: [],
+    kinetic: [
+      {
+        position: [
+          Math.random() * 10,
+          Math.random() * 20 + 5,
+          Math.random() * 30 - 15,
+        ],
+        rotation: [
+          Math.random() * Math.PI,
+          Math.random() * Math.PI,
+          Math.random() * Math.PI,
+        ],
+        type: ObjectType.cone,
+        id: 0,
+      },
+    ],
+    static: [
+      {
+        position: [
+          Math.random() * 10,
+          Math.random() * 20 + 5,
+          Math.random() * 30 - 15,
+        ],
+        rotation: [
+          Math.random() * Math.PI,
+          Math.random() * Math.PI,
+          Math.random() * Math.PI,
+        ],
+        type: ObjectType.cone,
+        id: 1,
+      },
+    ],
   },
-  addObject: (newObject: KurbObject, objectType: string) =>
+  addObject: (newObject: KurbObject, objectType: ObjectLayerType) =>
     set((state) => ({
       ...state,
       objects: {

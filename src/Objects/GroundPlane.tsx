@@ -7,10 +7,5 @@ export default (props: BodyProps) => {
     type: "Static",
     position: [0, 0.5, 0],
   }));
-  return (
-    <mesh ref={ref} receiveShadow>
-      {/* <planeBufferGeometry attach="geometry" args={[1000, 1000]} /> */}
-      {/* <meshPhysicalMaterial color="#393" /> */}
-    </mesh>
-  );
+  return <mesh ref={ref} receiveShadow />;
 };

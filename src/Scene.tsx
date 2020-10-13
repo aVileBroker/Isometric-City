@@ -7,8 +7,10 @@ import { Canvas } from "react-three-fiber";
 import { Stats, OrbitControls, Plane, useDetectGPU } from "drei";
 import { Physics } from "@react-three/cannon";
 
-import useStore from "./utils/useStore";
 import camera from "./constants/camera";
+
+import ObjectLayer from "./ObjectLayer";
+import { ObjectLayerType } from "./utils/useStore";
 
 import Building from "./Objects/Building";
 import GroundPlane from "./Objects/GroundPlane";
@@ -177,7 +179,7 @@ export default () => {
               <meshPhysicalMaterial color="#393" />
             </Plane>
             <GroundPlane rotation={[Math.PI / -2, 0, 0]} />
-            <PhysicalObjectsLayer />
+            <ObjectLayer objectTypeFilter={ObjectLayerType.kinetic} />
             <TrafficCone
               position={[
                 Math.random() * 10,
@@ -299,7 +301,7 @@ export default () => {
               ]}
             />
           </Physics>
-          <StaticObjectsLayer />
+          <ObjectLayer objectTypeFilter={ObjectLayerType.static} />
           {detectedGPU &&
             Number(detectedGPU.tier) > 2 &&
             !detectedGPU.isMobile && <Effects />}
