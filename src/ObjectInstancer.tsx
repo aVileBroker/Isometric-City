@@ -31,16 +31,28 @@ const objectProperties: ObjectPropertyMap = {
 };
 
 export default ({ objects }: { objects: KurbObject[] }) => {
-  const [ref] = useBox((index) => ({
-    position: objects[index].position,
-    rotation: objects[index].rotation,
-    args: objectProperties[objects[index].type].args,
-    mass: objectProperties[objects[index].type].mass,
-    material: objectProperties[objects[index].type].material,
-  }));
+  const [ref] = useBox((index) =>
+    objects.length
+      ? {
+          position: objects[index].position,
+          rotation: objects[index].rotation,
+          args: objectProperties[objects[index].type].args,
+          mass: objectProperties[objects[index].type].mass,
+          material: objectProperties[objects[index].type].material,
+        }
+      : {}
+  );
 
-  switch (obj.type) {
+  console.log(objects);
+
+  if (objects.length === 0) {
+    return null;
+  }
+
+  switch (objects[0].type) {
     case ObjectType.cone:
       return <TrafficCone ref={ref} />;
+    default:
+      return null;
   }
 };

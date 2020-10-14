@@ -1,5 +1,4 @@
 import React from "react";
-import TrafficCone from "./Objects/TrafficCone";
 
 import useStore, {
   KurbObject,
@@ -12,17 +11,27 @@ type ObjectInstances = {
   [key in string]: KurbObject[];
 };
 
+// this component parses the object list for the layer and passes it to the instancer to get physics
 export default ({ layer }: { layer: ObjectLayerType }) => {
   const objects = useStore((state) => state.objects);
   const objectsByLayer = objects[layer];
 
-  const objectsByType: ObjectInstances = {};
+  const types: string[] = Object.keys(ObjectType);
 
-  Object.keys(ObjectType).forEach((type) => {
-    objectsByType[type] = objectsByLayer.filter((obj) => obj.type === type);
+  const objectsByType: ObjectInstances = {};
+  types.forEach((type: string) => {
+    objectsByType[type] = objectsByLayer.filter(
+      (obj: KurbObject) => obj.type === type
+    );
   });
 
-  console.log(objectsByType);
-
-  return <ObjectInstancer objects={Object.values(objectsByType)[0]} />;
+  return (
+    <>
+      {types.length
+        ? Object.values(objectsByType).map((objArray) => (
+            <ObjectInstancer objects={objArray} />
+          ))
+        : null}
+    </>
+  );
 };
