@@ -169,6 +169,7 @@ export default () => {
         color="#FFA"
         intensity={3}
         castShadow
+        shadow-bias={-0.00001}
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         shadow-camera-far={500}
