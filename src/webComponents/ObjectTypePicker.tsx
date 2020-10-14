@@ -22,30 +22,29 @@ export default () => {
 
   return (
     <Card StyledContainer={StyledCardContainer} StyledBody={StyledCardBody}>
-      <Button
-        variant={
-          currentObjectTypeMode === ObjectType.cone
-            ? variants.fill
-            : variants.text
-        }
-        color={colors.primaryDark}
-        interactionFeedbackProps={{
-          color:
-            currentObjectTypeMode === ObjectType.cone
-              ? colors.background
-              : colors.primaryDark,
-        }}
-        StyledContainer={StyledButtonContainer}
-        onClick={() =>
-          setObjectTypeMode(
-            currentObjectTypeMode === ObjectType.cone
-              ? undefined
-              : ObjectType.cone
-          )
-        }
-      >
-        Traffic Cone
-      </Button>
+      {Object.values(ObjectType).map((type: string) => (
+        <Button
+          variant={
+            currentObjectTypeMode === type ? variants.fill : variants.text
+          }
+          color={colors.primaryDark}
+          interactionFeedbackProps={{
+            color:
+              currentObjectTypeMode === type
+                ? colors.background
+                : colors.primaryDark,
+          }}
+          StyledContainer={StyledButtonContainer}
+          onClick={() =>
+            setObjectTypeMode(
+              // @ts-expect-error
+              currentObjectTypeMode === type ? undefined : type
+            )
+          }
+        >
+          {type}
+        </Button>
+      ))}
     </Card>
   );
 };
