@@ -22,51 +22,30 @@ export type ObjectTypeList = {
 };
 
 export type ObjectStore = {
+  currentObjectTypeMode?: ObjectType;
+  setObjectTypeMode: (objectType?: ObjectType) => void;
   objects: ObjectTypeList;
-  addObject: (newObject: KurbObject, objectType: ObjectLayerType) => void;
+  addObject: (newObject: KurbObject, objectLayer: ObjectLayerType) => void;
 };
 
 export default create<ObjectStore>((set) => ({
+  currentObjectTypeMode: ObjectType.cone,
+  setObjectTypeMode: (objectType?: ObjectType) =>
+    set((state) => ({
+      ...state,
+      currentObjectTypeMode: objectType,
+    })),
+
   objects: {
-    kinetic: [
-      {
-        position: [
-          Math.random() * 10,
-          Math.random() * 20 + 5,
-          Math.random() * 30 - 15,
-        ],
-        rotation: [
-          Math.random() * Math.PI,
-          Math.random() * Math.PI,
-          Math.random() * Math.PI,
-        ],
-        type: ObjectType.cone,
-        id: 0,
-      },
-    ],
-    static: [
-      {
-        position: [
-          Math.random() * 10,
-          Math.random() * 20 + 5,
-          Math.random() * 30 - 15,
-        ],
-        rotation: [
-          Math.random() * Math.PI,
-          Math.random() * Math.PI,
-          Math.random() * Math.PI,
-        ],
-        type: ObjectType.cone,
-        id: 1,
-      },
-    ],
+    kinetic: [],
+    static: [],
   },
-  addObject: (newObject: KurbObject, objectType: ObjectLayerType) =>
+  addObject: (newObject: KurbObject, objectLayer: ObjectLayerType) =>
     set((state) => ({
       ...state,
       objects: {
         ...state.objects,
-        [objectType]: [...state.objects[objectType], newObject],
+        [objectLayer]: [...state.objects[objectLayer], newObject],
       },
     })),
 }));

@@ -1,40 +1,28 @@
 import React from "react";
 import TrafficCone from "./Objects/TrafficCone";
+
 import useStore, {
   KurbObject,
   ObjectLayerType,
   ObjectType,
-  ObjectTypeList,
 } from "./utils/useStore";
+import ObjectInstancer from "./ObjectInstancer";
 
-type ObjectLayer = {
-  objectTypeFilter: ObjectLayerType;
+type ObjectInstances = {
+  [key in string]: KurbObject[];
 };
 
-const getObjectComponent = (obj: KurbObject) => {
-  switch (obj.type) {
-    case ObjectType.cone:
-      return (
-        <TrafficCone
-          position={obj.position}
-          rotation={obj.rotation}
-          key={obj.id}
-        />
-      );
-  }
+export default ({ layer }: { layer: ObjectLayerType }) => {
+  const objects = useStore((state) => state.objects);
+  const objectsByLayer = objects[layer];
 
-  return null;
-};
+  const objectsByType: ObjectInstances = {};
 
-export default ({ objectTypeFilter }: ObjectLayer) => {
-  const objects = useStore<ObjectTypeList>((state) => state.objects);
-  const filteredObjects = objects[objectTypeFilter];
-  console.log(filteredObjects);
+  Object.keys(ObjectType).forEach((type) => {
+    objectsByType[type] = objectsByLayer.filter((obj) => obj.type === type);
+  });
 
-  return (
-    <>
-      {filteredObjects &&
-        filteredObjects.map((obj: KurbObject) => getObjectComponent(obj))}
-    </>
-  );
+  console.log(objectsByType);
+
+  return <ObjectInstancer objects={Object.values(objectsByType)[0]} />;
 };

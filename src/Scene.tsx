@@ -10,12 +10,11 @@ import { Physics } from "@react-three/cannon";
 import camera from "./constants/camera";
 
 import ObjectLayer from "./ObjectLayer";
-import { ObjectLayerType } from "./utils/useStore";
+import useStore, { ObjectType, ObjectLayerType } from "./utils/useStore";
 
 import Building from "./Objects/Building";
 import GroundPlane from "./Objects/GroundPlane";
 import Road from "./Objects/Road";
-import TrafficCone from "./Objects/TrafficCone";
 import Effects from "./Effects";
 
 export const focalDistanceAtom = atom([0, 0, 0]);
@@ -54,6 +53,22 @@ const cityLayout = [
     "road-nsew",
   ],
 ];
+
+const getObjectFromEvtAndType = (evt: any, type: ObjectType) => ({
+  // we shouldn't need the type to pass eventually
+  position: [
+    evt.intersections[evt.intersections.length - 1].point.x,
+    5,
+    evt.intersections[evt.intersections.length - 1].point.z,
+  ],
+  rotation: [
+    (Math.random() * Math.PI) / 8,
+    (Math.random() * Math.PI) / 8,
+    (Math.random() * Math.PI) / 8,
+  ],
+  type: ObjectType[type],
+  id: Math.random() * 1000,
+});
 
 const getLot = (lot: string | null, rowInd: number, colInd: number) => {
   const cityLength = cityLayout.length * 30;
@@ -114,12 +129,13 @@ const getLot = (lot: string | null, rowInd: number, colInd: number) => {
 export default () => {
   // @ts-expect-error
   const detectedGPU = useDetectGPU();
+  const { addObject } = useStore();
 
   return (
     <Canvas
       camera={{
         position: [100, 90, -100],
-        zoom: orthographic ? 10 : 1,
+        zoom: orthographic ? 12 : 1,
         near: camera.near,
         far: camera.far,
       }}
@@ -169,139 +185,25 @@ export default () => {
             row.map((lot, colInd) => getLot(lot, rowInd, colInd))
           )}
 
-          <Physics size={100}>
+          <Physics size={500}>
             <Plane
               position={[0, -0.01, 0]}
               scale={[500, 500, 500]}
               rotation={[Math.PI / -2, 0, 0]}
               receiveShadow
+              onClick={(evt) =>
+                addObject(
+                  getObjectFromEvtAndType(evt, ObjectType.cone),
+                  ObjectLayerType.kinetic
+                )
+              }
             >
               <meshPhysicalMaterial color="#393" />
             </Plane>
             <GroundPlane rotation={[Math.PI / -2, 0, 0]} />
-            <ObjectLayer objectTypeFilter={ObjectLayerType.kinetic} />
-            <TrafficCone
-              position={[
-                Math.random() * 10,
-                Math.random() * 20 + 5,
-                Math.random() * 30 - 15,
-              ]}
-              rotation={[
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-              ]}
-            />
-            <TrafficCone
-              position={[
-                Math.random() * 10,
-                Math.random() * 20 + 5,
-                Math.random() * 30 - 15,
-              ]}
-              rotation={[
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-              ]}
-            />
-            <TrafficCone
-              position={[
-                Math.random() * 10,
-                Math.random() * 20 + 5,
-                Math.random() * 30 - 15,
-              ]}
-              rotation={[
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-              ]}
-            />
-            <TrafficCone
-              position={[
-                Math.random() * 10,
-                Math.random() * 20 + 5,
-                Math.random() * 30 - 15,
-              ]}
-              rotation={[
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-              ]}
-            />
-            <TrafficCone
-              position={[
-                Math.random() * 10,
-                Math.random() * 20 + 5,
-                Math.random() * 30 - 15,
-              ]}
-              rotation={[
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-              ]}
-            />
-            <TrafficCone
-              position={[
-                Math.random() * 10,
-                Math.random() * 20 + 5,
-                Math.random() * 30 - 15,
-              ]}
-              rotation={[
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-              ]}
-            />
-            <TrafficCone
-              position={[
-                Math.random() * 10,
-                Math.random() * 20 + 5,
-                Math.random() * 30 - 15,
-              ]}
-              rotation={[
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-              ]}
-            />
-            <TrafficCone
-              position={[
-                Math.random() * 10,
-                Math.random() * 20 + 5,
-                Math.random() * 30 - 15,
-              ]}
-              rotation={[
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-              ]}
-            />
-            <TrafficCone
-              position={[
-                Math.random() * 10,
-                Math.random() * 20 + 5,
-                Math.random() * 30 - 15,
-              ]}
-              rotation={[
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-              ]}
-            />
-            <TrafficCone
-              position={[
-                Math.random() * 10,
-                Math.random() * 20 + 5,
-                Math.random() * 30 - 15,
-              ]}
-              rotation={[
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-              ]}
-            />
+            <ObjectLayer layer={ObjectLayerType.kinetic} />
           </Physics>
-          <ObjectLayer objectTypeFilter={ObjectLayerType.static} />
+          <ObjectLayer layer={ObjectLayerType.static} />
           {detectedGPU &&
             Number(detectedGPU.tier) > 2 &&
             !detectedGPU.isMobile && <Effects />}
