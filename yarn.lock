@@ -1305,20 +1305,22 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@headstorm/hs-react-ui@1.0.0-v1-release.19":
-  version "1.0.0-v1-release.19"
-  resolved "https://registry.yarnpkg.com/@headstorm/hs-react-ui/-/hs-react-ui-1.0.0-v1-release.19.tgz#4171f99329d38647feca4f12ec89d53fab24607d"
-  integrity sha512-ndIYBEo8akI7E/hxE1maxK8LNQhWUr4L0xGT8zl312Wg3hDddKJl3UT0OcV4Cht9Og+/ffUT3Kud/Ads3NcNlA==
+"@headstorm/foundry-react-ui@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@headstorm/foundry-react-ui/-/foundry-react-ui-1.0.0.tgz#40465d740b15af05a3f64c58040d283aa7d0e56c"
+  integrity sha512-zy58meAZeE/u88uKHhOkr/ZtHNTqpgyzhp6e5OyLa53vJ9PCuRE47i/+uP8eVO/tfYKUhNYBo6OZym/7Y1LXCw==
   dependencies:
     "@mdi/js" "^5.2.45"
     "@mdi/react" "^1.4.0"
     "@storybook/addon-actions" "^5.3.19"
     "@storybook/addon-knobs" "^5.3.19"
     "@types/lodash.debounce" "^4.0.6"
+    "@types/react-portal" "^4.0.2"
     "@typescript-eslint/eslint-plugin" "^3.0.0"
     "@typescript-eslint/parser" "^3.0.0"
     lodash.debounce "^4.0.8"
     polished "^3.5.1"
+    react-portal "^4.2.1"
     shortid "^2.2.15"
     src "^1.1.2"
 
@@ -2127,6 +2129,13 @@
   version "0.63.25"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.25.tgz#a08bbe17a75cce993f52655a8fe75f30bf77e965"
   integrity sha512-cRm+1iQecewpFYOArYJoM1qGd0JpFJ6f97KqIy9H2GawAdWkgyarSk8CBy4SMt2WOtPkysCu2EG7UwIT3vNeaA==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-portal@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react-portal/-/react-portal-4.0.2.tgz#57a7f4c8ad48097c5a2d0cbbd09187831b91afdf"
+  integrity sha512-8tOaQHURcZ9j5lg9laFRu5/7+ol71WvVs10VXuIp7IuoIwR2iXQB8+BOEASMRgc/+L1omgANCy+WyXDTmc1/iQ==
   dependencies:
     "@types/react" "*"
 
@@ -9873,6 +9882,13 @@ react-popper@^1.3.7:
     prop-types "^15.6.1"
     typed-styles "^0.0.7"
     warning "^4.0.2"
+
+react-portal@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/react-portal/-/react-portal-4.2.1.tgz#12c1599238c06fb08a9800f3070bea2a3f78b1a6"
+  integrity sha512-fE9kOBagwmTXZ3YGRYb4gcMy+kSA+yLO0xnPankjRlfBv4uCpFXqKPfkpsGQQR15wkZ9EssnvTOl1yMzbkxhPQ==
+  dependencies:
+    prop-types "^15.5.8"
 
 react-postprocessing@^1.4.0:
   version "1.4.0"

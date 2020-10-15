@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": false,
   "dependencies": {
-    "@headstorm/hs-react-ui": "1.0.0-v1-release.19",
+    "@headstorm/foundry-react-ui": "1.0.0",
     "@mdi/js": "^5.5.55",
     "@mdi/react": "^1.4.0",
     "@react-three/cannon": "^0.5.3",

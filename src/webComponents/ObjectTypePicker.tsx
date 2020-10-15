@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, colors, variants } from "@headstorm/hs-react-ui";
+import { Button, Card, colors, variants } from "@headstorm/foundry-react-ui";
 import styled from "styled-components";
 
 import useStore, { ObjectType } from "../utils/useStore";
