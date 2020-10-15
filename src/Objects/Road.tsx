@@ -45,7 +45,6 @@ export default ({
       {nodes.Scene.children[0].children.map((child: any) => (
         <mesh
           key={child.uuid}
-          visible
           geometry={child.geometry}
           castShadow
           receiveShadow

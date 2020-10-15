@@ -1,47 +1,42 @@
-import React from "react";
-// import { useBox } from "@react-three/cannon";
+import React, { useEffect } from "react";
 
 import { useLoader } from "react-three-fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { useBox } from "@react-three/cannon";
 
-export default React.forwardRef(
-  (
-    {
-      position = [0, 0, 0],
-      rotation = [0, 0, 0],
-      ...props
-    }: {
-      position?: number[];
-      rotation?: number[];
-    },
-    ref
-  ) => {
-    // const [coneRef] = useBox(() => ({
-    //   position,
-    //   rotation,
-    //   ...props,
-    //   args: [2, 2, 2],
-    //   mass: 1,
-    //   material: { restitution: 1.5 },
-    // }));
+import { KurbObject } from "../utils/useStore";
 
-    const {
-      // @ts-expect-error
-      nodes: { Cube },
-    } = useLoader(GLTFLoader, `../models/traffic-cone.glb`);
+export default ({ objects }: { objects: KurbObject[] }) => {
+  const [ref, api] = useBox((index) => ({
+    position: [0, -50000, 0],
+    mass: 1,
+    args: [2, 2, 2],
+    type: "Dynamic",
+  }));
 
-    return (
-      <instancedMesh
-        // @ts-expect-error - ref type is wonky?
-        ref={ref}
-        key={Cube.uuid}
-        visible
-        geometry={Cube.geometry}
-        castShadow
-        receiveShadow
-      >
-        <meshPhysicalMaterial attach="material" {...Cube.material} />
-      </instancedMesh>
-    );
-  }
-);
+  const {
+    // @ts-expect-error
+    nodes: { Cube },
+  } = useLoader(GLTFLoader, `../models/traffic-cone.glb`);
+
+  useEffect(() => {
+    if (objects.length) {
+      const newObjPosition: number[] = objects[objects.length - 1].position;
+      api
+        .at(objects.length - 1)
+        .position.set(newObjPosition[0], newObjPosition[1], newObjPosition[2]);
+      api.at(objects.length - 1).velocity.set(0, 0, 0);
+      api.at(objects.length - 1).rotation.set(0, 0, 0);
+      api.at(objects.length - 1).angularVelocity.set(0, 0, 0);
+    }
+  }, [api, objects]);
+
+  return (
+    <instancedMesh
+      ref={ref}
+      args={[Cube.geometry, Cube.material, 75]}
+      castShadow
+      receiveShadow
+    />
+  );
+};

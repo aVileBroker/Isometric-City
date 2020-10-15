@@ -26,6 +26,7 @@ export default () => {
     <Card StyledContainer={StyledCardContainer} StyledBody={StyledCardBody}>
       {Object.values(ObjectType).map((type: string) => (
         <Button
+          key={type}
           variant={
             currentObjectTypeMode === type ? variants.fill : variants.text
           }

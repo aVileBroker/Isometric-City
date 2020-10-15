@@ -134,7 +134,7 @@ export default () => {
   return (
     <Canvas
       camera={{
-        position: [100, 90, -100],
+        position: [59, 90, -100],
         zoom: orthographic ? 12 : 1,
         near: camera.near,
         far: camera.far,
