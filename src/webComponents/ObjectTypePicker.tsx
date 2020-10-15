@@ -12,6 +12,8 @@ const StyledCardContainer = styled(Card.Container)`
 `;
 const StyledCardBody = styled(Card.Body)`
   padding: 0;
+  display: flex;
+  flex-flow: column nowrap;
 `;
 const StyledButtonContainer = styled(Button.Container)`
   border-radius: 0;
