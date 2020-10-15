@@ -129,7 +129,7 @@ const getLot = (lot: string | null, rowInd: number, colInd: number) => {
 export default () => {
   // @ts-expect-error
   const detectedGPU = useDetectGPU();
-  const { addObject } = useStore();
+  const { currentObjectTypeMode, addObject } = useStore();
 
   return (
     <Canvas
@@ -169,7 +169,7 @@ export default () => {
         color="#FFA"
         intensity={3}
         castShadow
-        shadow-bias={-0.00001}
+        shadow-bias={-0.002}
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         shadow-camera-far={500}
@@ -185,22 +185,23 @@ export default () => {
           {cityLayout.map((row, rowInd) =>
             row.map((lot, colInd) => getLot(lot, rowInd, colInd))
           )}
-
+          <Plane
+            position={[0, -0.01, 0]}
+            scale={[500, 500, 500]}
+            rotation={[Math.PI / -2, 0, 0]}
+            receiveShadow
+            onClick={(evt) =>
+              currentObjectTypeMode
+                ? addObject(
+                    getObjectFromEvtAndType(evt, currentObjectTypeMode),
+                    ObjectLayerType.kinetic
+                  )
+                : null
+            }
+          >
+            <meshPhysicalMaterial color="#282" />
+          </Plane>
           <Physics size={500}>
-            <Plane
-              position={[0, -0.01, 0]}
-              scale={[500, 500, 500]}
-              rotation={[Math.PI / -2, 0, 0]}
-              receiveShadow
-              onClick={(evt) =>
-                addObject(
-                  getObjectFromEvtAndType(evt, ObjectType.cone),
-                  ObjectLayerType.kinetic
-                )
-              }
-            >
-              <meshPhysicalMaterial color="#393" />
-            </Plane>
             <GroundPlane rotation={[Math.PI / -2, 0, 0]} />
             <ObjectLayer layer={ObjectLayerType.kinetic} />
           </Physics>

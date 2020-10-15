@@ -25,13 +25,16 @@ export default ({ layer }: { layer: ObjectLayerType }) => {
     );
   });
 
+  if (layer === ObjectLayerType.static) {
+    return null;
+  }
+
+  // return a non-cannon object instancer if static
   return (
     <>
-      {types.length
-        ? Object.values(objectsByType).map((objArray) => (
-            <ObjectInstancer objects={objArray} />
-          ))
-        : null}
+      {Object.values(objectsByType).map((objArray) => (
+        <ObjectInstancer objects={objArray} />
+      ))}
     </>
   );
 };
