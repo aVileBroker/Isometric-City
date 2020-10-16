@@ -32,15 +32,6 @@ export default ({
     <group
       position={new THREE.Vector3(...position)}
       rotation={new THREE.Euler(...rotation)}
-      /* onClick={(evt) => {
-        console.log(evt);
-        // setDistance(evt.intersections[0].distance);
-        setFocusPoint([
-          evt.intersections[0].point.x,
-          evt.intersections[0].point.y,
-          evt.intersections[0].point.z,
-        ]);
-      }} */
     >
       {nodes.Scene.children[0].children.map((child: any) => (
         <mesh

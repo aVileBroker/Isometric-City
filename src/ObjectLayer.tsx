@@ -6,6 +6,7 @@ import useStore, {
   ObjectType,
 } from "./utils/useStore";
 import TrafficCone from "./Objects/TrafficCone";
+import FoodTruck from "./Objects/FoodTruck";
 
 type ObjectInstances = {
   [key in string]: KurbObject[];
@@ -32,9 +33,8 @@ export default ({ layer }: { layer: ObjectLayerType }) => {
   // return a non-cannon object instancer if static
   return (
     <>
-      {Object.entries(objectsByType).map(([typeKey, objArray]) => (
-        <TrafficCone key={typeKey} objects={objArray} />
-      ))}
+      <TrafficCone objects={objectsByType.cone} />
+      <FoodTruck objects={objectsByType.foodTruck} />
     </>
   );
 };

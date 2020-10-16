@@ -165,7 +165,7 @@ export default () => {
       <ambientLight intensity={0.6} color="#DDF" />
       {/* Sun light */}
       <directionalLight
-        position={[-150, 50, -100]}
+        position={[-30, 100, -100]}
         color="#FFA"
         intensity={3}
         castShadow

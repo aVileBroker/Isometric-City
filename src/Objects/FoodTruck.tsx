@@ -7,30 +7,35 @@ import { Event, useBox } from "@react-three/cannon";
 
 import useStore, { KurbObject, ObjectStore } from "../utils/useStore";
 
-const objectCap = 200;
-const glbUri: string = `../models/traffic-cone.glb`;
+const objectCap = 20;
+const glbUri: string = `../models/food-truck.glb`;
 
 export default ({ objects }: { objects: KurbObject[] }) => {
-  const plasticAudio: HTMLAudioElement = useStore(
-    (state: ObjectStore): HTMLAudioElement => state.plasticAudio
-  );
+  const {
+    truckHonkAudio,
+    truckAudio,
+  }: {
+    truckHonkAudio: HTMLAudioElement;
+    truckAudio: HTMLAudioElement;
+  } = useStore((state: ObjectStore) => state);
 
   const objectCount = useRef(objects.length);
 
   const [ref, api] = useBox((index) => ({
     position: [Math.random() * 50000, -50000, Math.random() * 50000],
-    mass: 1,
-    args: [2, 2, 2],
+    mass: 3000,
+    args: [9.64763, 6.31864, 4.78622],
     type: "Dynamic",
     onCollide: (e: Event): void => {
       if (index < objectCount.current) {
         // @ts-expect-error clamp doesn't exist on cannon Event?
         const velocity = e.contact.impactVelocity / 20;
         if (velocity > 0.0125) {
-          plasticAudio.currentTime = 0;
+          const audio = Math.random() > 0.25 ? truckAudio : truckHonkAudio;
+          audio.currentTime = 0;
           // @ts-expect-error clamp doesn't exist on cannon Event?
-          plasticAudio.volume = clamp(e.contact.impactVelocity / 20, 0.01, 1);
-          plasticAudio.play();
+          audio.volume = clamp(e.contact.impactVelocity / 20, 0.01, 1);
+          audio.play();
         }
       }
     },
