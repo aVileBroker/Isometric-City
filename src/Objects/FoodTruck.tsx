@@ -31,11 +31,16 @@ export default ({ objects }: { objects: KurbObject[] }) => {
         // @ts-expect-error clamp doesn't exist on cannon Event?
         const velocity = e.contact.impactVelocity / 20;
         if (velocity > 0.0125) {
-          const audio = Math.random() > 0.25 ? truckAudio : truckHonkAudio;
-          audio.currentTime = 0;
+          truckAudio.currentTime = 0;
           // @ts-expect-error clamp doesn't exist on cannon Event?
-          audio.volume = clamp(e.contact.impactVelocity / 20, 0.01, 1);
-          audio.play();
+          truckAudio.volume = clamp(e.contact.impactVelocity / 20, 0.01, 1);
+          truckAudio.play();
+        }
+        if (velocity > 0.6) {
+          truckHonkAudio.currentTime = 0;
+          // @ts-expect-error clamp doesn't exist on cannon Event?
+          truckHonkAudio.volume = clamp(e.contact.impactVelocity / 20, 0.5, 1);
+          truckHonkAudio.play();
         }
       }
     },

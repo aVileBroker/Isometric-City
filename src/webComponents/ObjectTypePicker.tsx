@@ -23,7 +23,11 @@ export default () => {
   const { currentObjectTypeMode, setObjectTypeMode } = useStore();
 
   return (
-    <Card StyledContainer={StyledCardContainer} StyledBody={StyledCardBody}>
+    <Card
+      StyledContainer={StyledCardContainer}
+      StyledBody={StyledCardBody}
+      header="Objects"
+    >
       {Object.values(ObjectType).map((type: string) => (
         <Button
           key={type}

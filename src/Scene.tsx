@@ -58,7 +58,7 @@ const getObjectFromEvtAndType = (evt: any, type: ObjectType) => ({
   // we shouldn't need the type to pass eventually
   position: [
     evt.intersections[evt.intersections.length - 1].point.x,
-    8,
+    type === "foodTruck" ? 15 : 8,
     evt.intersections[evt.intersections.length - 1].point.z,
   ],
   rotation: [
@@ -135,7 +135,7 @@ export default () => {
     <Canvas
       camera={{
         position: [59, 90, -100],
-        zoom: orthographic ? 12 : 1,
+        zoom: orthographic ? 14 : 1,
         near: camera.near,
         far: camera.far,
       }}

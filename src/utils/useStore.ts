@@ -64,7 +64,7 @@ export default create<ObjectStore>((set, get) => ({
     );
   },
 
-  truckHonkAudio: new Audio("/audio/food-truck-with-honk.mp3"),
+  truckHonkAudio: new Audio("/audio/food-truck-honk.mp3"),
   truckAudio: new Audio("/audio/food-truck.mp3"),
   plasticAudio: new Audio("/audio/plastic-collision-mixed.mp3"),
   creationAudio: new Audio("/audio/object-creation.mp3"),
