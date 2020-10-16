@@ -32,14 +32,13 @@ export default () => {
   return (
     <EffectComposer multisampling={0}>
       <DepthOfField
-        /*
-        // @ts-expect-error */
+        // @ts-expect-error
         ref={dofRef}
         focalLength={0.15}
         bokehScale={4}
         height={640}
       />
-      <Bloom intensity={0.7} luminanceThreshold={0.7} />
+      <Bloom intensity={0.25} luminanceThreshold={0.7} />
       <SSAO
         // @ts-expect-error
         samples={25}
