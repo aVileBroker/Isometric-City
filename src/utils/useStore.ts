@@ -26,26 +26,42 @@ export type ObjectStore = {
   setObjectTypeMode: (objectType?: ObjectType) => void;
   objects: ObjectTypeList;
   addObject: (newObject: KurbObject, objectLayer: ObjectLayerType) => void;
+
+  plasticAudio: HTMLAudioElement;
+  creationAudio: HTMLAudioElement;
 };
 
-export default create<ObjectStore>((set) => ({
+export default create<ObjectStore>((set, get) => ({
   currentObjectTypeMode: ObjectType.cone,
   setObjectTypeMode: (objectType?: ObjectType) =>
-    set((state) => ({
-      ...state,
-      currentObjectTypeMode: objectType,
-    })),
+    set(
+      (state: ObjectStore): ObjectStore => ({
+        ...state,
+        currentObjectTypeMode: objectType,
+      })
+    ),
 
   objects: {
     kinetic: [],
     static: [],
   },
-  addObject: (newObject: KurbObject, objectLayer: ObjectLayerType) =>
-    set((state) => ({
-      ...state,
-      objects: {
-        ...state.objects,
-        [objectLayer]: [...state.objects[objectLayer], newObject],
-      },
-    })),
+  addObject: (newObject, objectLayer) => {
+    const audio = get().creationAudio;
+
+    audio.currentTime = 0;
+    audio.play();
+
+    set(
+      (state: ObjectStore): ObjectStore => ({
+        ...state,
+        objects: {
+          ...state.objects,
+          [objectLayer]: [...state.objects[objectLayer], newObject],
+        },
+      })
+    );
+  },
+
+  plasticAudio: new Audio("/audio/plastic-collision-mixed.mp3"),
+  creationAudio: new Audio("/audio/object-creation.mp3"),
 }));

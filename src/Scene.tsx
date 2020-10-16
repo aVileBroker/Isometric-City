@@ -58,7 +58,7 @@ const getObjectFromEvtAndType = (evt: any, type: ObjectType) => ({
   // we shouldn't need the type to pass eventually
   position: [
     evt.intersections[evt.intersections.length - 1].point.x,
-    5,
+    8,
     evt.intersections[evt.intersections.length - 1].point.z,
   ],
   rotation: [
@@ -182,9 +182,11 @@ export default () => {
 
       <Suspense fallback={null}>
         <Bridge value={useBridge()}>
-          {cityLayout.map((row, rowInd) =>
-            row.map((lot, colInd) => getLot(lot, rowInd, colInd))
-          )}
+          <group position={[15, 0, 15]}>
+            {cityLayout.map((row, rowInd) =>
+              row.map((lot, colInd) => getLot(lot, rowInd, colInd))
+            )}
+          </group>
           <Plane
             position={[0, -0.01, 0]}
             scale={[500, 500, 500]}
