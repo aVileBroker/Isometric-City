@@ -20,21 +20,22 @@ export default () => {
 
   // TODO: setup a spring which animates between the old focal point and the new one for smoother racking
 
-  const dofRef = useResource();
+  // const dofRef = useResource();
 
-  useEffect(() => {
-    if (dofRef && dofRef.current) {
-      // @ts-ignore
-      dofRef.current.target = new THREE.Vector3(...focalPoint);
-    }
-  }, [dofRef, focalPoint]);
+  // useEffect(() => {
+  //   if (dofRef && dofRef.current) {
+  //     // @ts-ignore
+  //     dofRef.current.target = new THREE.Vector3(...focalPoint);
+  //   }
+  // }, [dofRef, focalPoint]);
 
   return (
     <EffectComposer multisampling={0}>
       <DepthOfField
-        // @ts-expect-error
-        ref={dofRef}
+        // don't @ts-expect-error
+        // ref={dofRef}
         focalLength={0.15}
+        focusDistance={0.3}
         bokehScale={4}
         height={640}
       />
