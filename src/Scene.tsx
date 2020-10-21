@@ -4,7 +4,12 @@ import { atom, Bridge, useBridge } from "jotai";
 
 import { MOUSE } from "three";
 import { Canvas } from "react-three-fiber";
-import { Stats, OrbitControls, Plane, useDetectGPU } from "drei";
+import {
+  // Stats,
+  MapControls,
+  Plane,
+  useDetectGPU,
+} from "drei";
 import { Physics } from "@react-three/cannon";
 
 import camera from "./constants/camera";
@@ -58,7 +63,7 @@ const getObjectFromEvtAndType = (evt: any, type: ObjectType) => ({
   // we shouldn't need the type to pass eventually
   position: [
     evt.intersections[evt.intersections.length - 1].point.x,
-    type === "foodTruck" ? 15 : 8,
+    type === "foodTruck" ? 10 : 5,
     evt.intersections[evt.intersections.length - 1].point.z,
   ],
   rotation: [
@@ -144,20 +149,19 @@ export default () => {
       colorManagement
       shadowMap
       pixelRatio={window.devicePixelRatio}
-      style={{ height: "100vh", width: "100vw" }}
+      style={{ height: "calc(100vh - 12rem)", width: "100%" }}
     >
-      <OrbitControls
-        enableKeys={false}
+      <MapControls
+        enableZoom={false}
         maxPolarAngle={1}
         minPolarAngle={1}
-        enableZoom={false}
         mouseButtons={{
           LEFT: MOUSE.MIDDLE,
           MIDDLE: MOUSE.LEFT,
           RIGHT: MOUSE.RIGHT,
         }}
       />
-      <Stats />
+      {/* <Stats /> */}
       <color attach="background" args={[0.7, 0.7, 1]} />
       <fog attach="fog" args={["#DDF", 80, 500]} />
 

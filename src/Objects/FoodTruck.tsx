@@ -30,7 +30,7 @@ export default ({ objects }: { objects: KurbObject[] }) => {
       if (index < objectCount.current) {
         // @ts-expect-error clamp doesn't exist on cannon Event?
         const velocity = e.contact.impactVelocity;
-        if (velocity > 0.001) {
+        if (velocity > 0.01) {
           truckAudio.currentTime = 0;
           // @ts-expect-error clamp doesn't exist on cannon Event?
           truckAudio.volume = clamp(e.contact.impactVelocity / 20, 0.1, 1);
@@ -51,9 +51,16 @@ export default ({ objects }: { objects: KurbObject[] }) => {
     nodes: { Cube },
   } = useLoader(GLTFLoader, glbUri);
 
-  objectCount.current = objects.length;
-
   useEffect(() => {
+    if (objects.length === 0 && objectCount.current > 0) {
+      // reset!
+      for (let i = 0; i < objectCount.current; i++) {
+        api
+          .at(i)
+          .position.set(Math.random() * 50000, -50000, Math.random() * 50000);
+      }
+    }
+
     if (objects.length && objects.length <= objectCap) {
       const { position, rotation = [0, 0, 0] }: KurbObject = objects[
         objects.length - 1
@@ -68,6 +75,7 @@ export default ({ objects }: { objects: KurbObject[] }) => {
       api.at(objects.length - 1).velocity.set(0, -2, 0);
       api.at(objects.length - 1).angularVelocity.set(0, 0, 0);
     }
+    objectCount.current = objects.length;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [objects.length]);
 

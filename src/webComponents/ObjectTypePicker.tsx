@@ -1,14 +1,24 @@
 import React from "react";
 import { Button, Card, colors, variants } from "@headstorm/foundry-react-ui";
 import styled from "styled-components";
+import { mdiRefresh } from "@mdi/js";
 
 import useStore, { ObjectType } from "../utils/useStore";
 
 const StyledCardContainer = styled(Card.Container)`
-  position: fixed;
+  position: absolute;
   overflow: hidden;
-  top: 4rem;
-  left: 1rem;
+  top: 12rem;
+  left: 3rem;
+  min-width: 12rem;
+`;
+
+const StyledCardHeader = styled(Card.Header)`
+  padding: 1rem;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
 `;
 const StyledCardBody = styled(Card.Body)`
   padding: 0;
@@ -17,16 +27,34 @@ const StyledCardBody = styled(Card.Body)`
 `;
 const StyledButtonContainer = styled(Button.Container)`
   border-radius: 0;
+  font-weight: bold;
 `;
 
+const ResetButtonContainer = styled(Button.Container)``;
+
 export default () => {
-  const { currentObjectTypeMode, setObjectTypeMode } = useStore();
+  const {
+    currentObjectTypeMode,
+    setObjectTypeMode,
+    removeAllObjects,
+  } = useStore();
 
   return (
     <Card
       StyledContainer={StyledCardContainer}
+      StyledHeader={StyledCardHeader}
       StyledBody={StyledCardBody}
-      header="Objects"
+      header={
+        <>
+          <div>Objects</div>
+          <Button
+            StyledContainer={ResetButtonContainer}
+            iconPrefix={mdiRefresh}
+            variant={variants.text}
+            onClick={removeAllObjects}
+          />
+        </>
+      }
     >
       {Object.values(ObjectType).map((type: string) => (
         <Button

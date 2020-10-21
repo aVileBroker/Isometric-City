@@ -25,6 +25,7 @@ export type ObjectStore = {
   currentObjectTypeMode?: ObjectType;
   setObjectTypeMode: (objectType?: ObjectType) => void;
   objects: ObjectTypeList;
+  removeAllObjects: () => void;
   addObject: (newObject: KurbObject, objectLayer: ObjectLayerType) => void;
 
   truckHonkAudio: HTMLAudioElement;
@@ -47,10 +48,28 @@ export default create<ObjectStore>((set, get) => ({
     kinetic: [],
     static: [],
   },
+  removeAllObjects: () => {
+    const audio = get().creationAudio;
+
+    audio.currentTime = 0;
+    audio.volume = 0.5;
+    audio.play();
+
+    set(
+      (state: ObjectStore): ObjectStore => ({
+        ...state,
+        objects: {
+          kinetic: [],
+          static: [],
+        },
+      })
+    );
+  },
   addObject: (newObject, objectLayer) => {
     const audio = get().creationAudio;
 
     audio.currentTime = 0;
+    audio.volume = 0.75;
     audio.play();
 
     set(

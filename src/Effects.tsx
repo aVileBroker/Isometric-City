@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import * as THREE from "three";
+import React from "react";
+// import * as THREE from "three";
 import {
   EffectComposer,
   DepthOfField,
@@ -9,14 +9,14 @@ import {
   // Noise,
   SMAA,
 } from "react-postprocessing";
-import { useResource } from "react-three-fiber";
+// import { useResource } from "react-three-fiber";
 import { EdgeDetectionMode } from "postprocessing";
-import { useAtom } from "jotai";
+// import { useAtom } from "jotai";
 
-import { focalDistanceAtom } from "./Scene";
+// import { focalDistanceAtom } from "./Scene";
 
 export default () => {
-  const [focalPoint] = useAtom(focalDistanceAtom);
+  // const [focalPoint] = useAtom(focalDistanceAtom);
 
   // TODO: setup a spring which animates between the old focal point and the new one for smoother racking
 
@@ -43,13 +43,12 @@ export default () => {
       <SSAO
         // @ts-expect-error
         samples={25}
-        intensity={40}
+        intensity={30}
         luminanceInfluence={0.25}
         radius={3}
         scale={0.5}
         bias={0.5}
       />
-      {/* <Noise opacity={0.1} /> */}
       <Vignette />
       <SMAA edgeDetectionMode={EdgeDetectionMode.DEPTH} />
     </EffectComposer>
