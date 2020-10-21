@@ -24,12 +24,12 @@ export default ({ objects }: { objects: KurbObject[] }) => {
     type: "Dynamic",
     onCollide: (e: Event): void => {
       if (index < objectCount.current) {
-        // @ts-expect-error clamp doesn't exist on cannon Event?
-        const velocity = e.contact.impactVelocity / 20;
+        // @ts-expect-error contact doesn't exist on cannon Event?
+        const velocity = e.contact.impactVelocity / 25;
         if (velocity > 0.0125) {
           plasticAudio.currentTime = 0;
-          // @ts-expect-error clamp doesn't exist on cannon Event?
-          plasticAudio.volume = clamp(e.contact.impactVelocity / 20, 0.01, 1);
+
+          plasticAudio.volume = clamp(velocity, 0.01, 0.5);
           plasticAudio.play();
         }
       }

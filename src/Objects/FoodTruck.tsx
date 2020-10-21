@@ -28,18 +28,22 @@ export default ({ objects }: { objects: KurbObject[] }) => {
     type: "Dynamic",
     onCollide: (e: Event): void => {
       if (index < objectCount.current) {
-        // @ts-expect-error clamp doesn't exist on cannon Event?
+        // @ts-expect-error contact doesn't exist on cannon Event?
         const velocity = e.contact.impactVelocity;
-        if (velocity > 0.01) {
+        if (velocity > 0.05) {
           truckAudio.currentTime = 0;
-          // @ts-expect-error clamp doesn't exist on cannon Event?
-          truckAudio.volume = clamp(e.contact.impactVelocity / 20, 0.1, 1);
+          // @ts-expect-error contact doesn't exist on cannon Event?
+          truckAudio.volume = clamp(e.contact.impactVelocity / 20, 0.1, 0.6);
           truckAudio.play();
         }
-        if (velocity > 10) {
+        if (velocity > 12) {
           truckHonkAudio.currentTime = 0;
-          // @ts-expect-error clamp doesn't exist on cannon Event?
-          truckHonkAudio.volume = clamp(e.contact.impactVelocity / 20, 0.5, 1);
+          truckHonkAudio.volume = clamp(
+            // @ts-expect-error contact doesn't exist on cannon Event?
+            e.contact.impactVelocity / 20,
+            0.4,
+            0.6
+          );
           truckHonkAudio.play();
         }
       }
