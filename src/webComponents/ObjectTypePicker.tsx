@@ -1,9 +1,14 @@
 import React from "react";
 import { Button, Card, colors, variants } from "@headstorm/foundry-react-ui";
 import styled from "styled-components";
-import { mdiRefresh } from "@mdi/js";
+import { mdiTrashCan } from "@mdi/js";
 
 import useStore, { ObjectType } from "../utils/useStore";
+
+const objectTypeNames: { [key in string]: string } = {
+  cone: "Traffic Cone",
+  foodTruck: "Food Truck",
+};
 
 const StyledCardContainer = styled(Card.Container)`
   position: absolute;
@@ -49,7 +54,7 @@ export default () => {
           <div>Objects</div>
           <Button
             StyledContainer={ResetButtonContainer}
-            iconPrefix={mdiRefresh}
+            iconPrefix={mdiTrashCan}
             variant={variants.text}
             onClick={removeAllObjects}
           />
@@ -77,7 +82,7 @@ export default () => {
             )
           }
         >
-          {type}
+          {objectTypeNames[type]}
         </Button>
       ))}
     </Card>

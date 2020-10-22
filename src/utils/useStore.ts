@@ -22,6 +22,8 @@ export type ObjectTypeList = {
 };
 
 export type ObjectStore = {
+  tutorialOpen: boolean;
+  setTutorialState: (newState: boolean) => void;
   currentObjectTypeMode?: ObjectType;
   setObjectTypeMode: (objectType?: ObjectType) => void;
   objects: ObjectTypeList;
@@ -35,6 +37,14 @@ export type ObjectStore = {
 };
 
 export default create<ObjectStore>((set, get) => ({
+  tutorialOpen: true,
+  setTutorialState: (newState: boolean) =>
+    set(
+      (state: ObjectStore): ObjectStore => ({
+        ...state,
+        tutorialOpen: newState,
+      })
+    ),
   currentObjectTypeMode: ObjectType.cone,
   setObjectTypeMode: (objectType?: ObjectType) =>
     set(

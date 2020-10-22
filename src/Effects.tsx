@@ -49,7 +49,7 @@ export default () => {
         scale={0.5}
         bias={0.5}
       />
-      <Vignette />
+      <Vignette darkness={0.625} />
       <SMAA edgeDetectionMode={EdgeDetectionMode.DEPTH} />
     </EffectComposer>
   );
