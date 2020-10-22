@@ -26,19 +26,19 @@ import useStore from "src/utils/useStore";
 const pages = [
   {
     name: (
-      <Text iconPrefix={mdiRotate3dVariant}>
-        Hold the middle mouse button to rotate
-      </Text>
-    ),
-    button: 2,
-  },
-  {
-    name: (
       <Text iconPrefix={mdiCursorMove}>
         Use the right mouse button to move around the map
       </Text>
     ),
     button: 1,
+  },
+  {
+    name: (
+      <Text iconPrefix={mdiRotate3dVariant}>
+        Hold the middle mouse button to rotate
+      </Text>
+    ),
+    button: 2,
   },
 ];
 
@@ -64,6 +64,12 @@ export default () => {
   const [currentPage, setCurrentPage] = React.useState(0);
   const { tutorialOpen, setTutorialState } = useStore();
 
+  React.useEffect(() => setCurrentPage(0), [tutorialOpen]);
+
+  if (!tutorialOpen) {
+    return null;
+  }
+
   const handleModalClose = () => {
     setTutorialState(false);
   };
@@ -81,12 +87,6 @@ export default () => {
       setCurrentPage(currentPage - 1);
     }
   };
-
-  React.useEffect(() => setCurrentPage(0), [tutorialOpen]);
-
-  if (!tutorialOpen) {
-    return null;
-  }
 
   const isLastPage = currentPage === pages.length - 1;
 

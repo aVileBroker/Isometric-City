@@ -56,11 +56,16 @@ export default ({
     },
   }));
 
-  useInterval(() => {
-    mouseXPos.current = mouseXPos.current !== 0 ? mouseXPos.current * -1 : 0.2;
-    mouseYRot.current = Math.PI / (Math.random() * 8 + 8) - Math.PI / 16;
-    set({ scale: 1, x: mouseXPos.current, yRot: mouseYRot.current });
-  }, 1500);
+  useInterval(
+    () => {
+      mouseXPos.current =
+        mouseXPos.current !== 0 ? mouseXPos.current * -1 : 0.2;
+      mouseYRot.current = Math.PI / (Math.random() * 8 + 8) - Math.PI / 16;
+      set({ scale: 1, x: mouseXPos.current, yRot: mouseYRot.current });
+    },
+    1500,
+    true
+  );
 
   React.useEffect(() => {
     if (highlightedButton !== undefined && highlightedButton <= 2) {
