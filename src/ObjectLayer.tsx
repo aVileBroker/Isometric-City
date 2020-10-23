@@ -7,6 +7,7 @@ import useStore, {
 } from "./utils/useStore";
 import TrafficCone from "./Objects/TrafficCone";
 import FoodTruck from "./Objects/FoodTruck";
+import Tables from "./Objects/Tables";
 
 type ObjectInstances = {
   [key in string]: KurbObject[];
@@ -35,6 +36,7 @@ export default ({ layer }: { layer: ObjectLayerType }) => {
     <>
       <TrafficCone objects={objectsByType.cone} />
       <FoodTruck objects={objectsByType.foodTruck} />
+      <Tables objects={objectsByType.tables} />
     </>
   );
 };

@@ -1,45 +1,28 @@
 import React, { useEffect, useRef } from "react";
 
-import clamp from "lodash.clamp";
 import { useLoader } from "react-three-fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { Event, useCylinder } from "@react-three/cannon";
+import { useCylinder } from "@react-three/cannon";
 
-import useStore, { KurbObject, ObjectStore } from "../utils/useStore";
+import { KurbObject } from "../utils/useStore";
 
-const objectCap = 200;
-const glbUri: string = `../models/traffic-cone.glb`;
+const objectCap = 50;
+const glbUri: string = `../models/table-large.glb`;
 
 export default ({ objects }: { objects: KurbObject[] }) => {
-  const plasticAudio: HTMLAudioElement = useStore(
-    (state: ObjectStore): HTMLAudioElement => state.plasticAudio
-  );
-
   const objectCount = useRef(objects.length);
 
   // @ts-expect-error
   const [ref, api] = useCylinder((index) => ({
     position: [Math.random() * 50000, -50000, Math.random() * 50000],
     mass: 1,
-    args: [0.2, 1.8, 2, 8],
+    args: [2.665, 2.665, 2.3, 32],
     type: "Dynamic",
-    onCollide: (e: Event): void => {
-      if (index < objectCount.current) {
-        // @ts-expect-error contact doesn't exist on cannon Event?
-        const velocity = e.contact.impactVelocity / 25;
-        if (velocity > 0.0125) {
-          plasticAudio.currentTime = 0;
-
-          plasticAudio.volume = clamp(velocity, 0.01, 0.5);
-          plasticAudio.play();
-        }
-      }
-    },
   }));
 
   const {
     // @ts-expect-error
-    nodes: { Cube },
+    nodes: { Table },
   } = useLoader(GLTFLoader, glbUri);
 
   useEffect(() => {
@@ -75,7 +58,7 @@ export default ({ objects }: { objects: KurbObject[] }) => {
   return (
     <instancedMesh
       ref={ref}
-      args={[Cube.geometry, Cube.material, objectCap]}
+      args={[Table.geometry, Table.material, objectCap]}
       castShadow
       receiveShadow
     />

@@ -9,12 +9,13 @@ import MapControls from "./webComponents/MapControls";
 
 import Header from "./webComponents/Header";
 import Tutorial from "./webComponents/Tutorial";
+import FoodBuilder from "./webComponents/FoodBuilder";
 
 const PageContainer = styled.div`
   max-width: 70rem;
   width: calc(100% - 4rem);
   margin: 0 auto;
-  padding: 2rem;
+  padding: 4rem 2rem;
 `;
 
 export default () => (
@@ -26,8 +27,7 @@ export default () => (
 
     <Tutorial />
     <PageContainer>
-      <h1>What's a Qurb anyway?</h1>
-      <p>Nothing! It's all made up.</p>
+      <FoodBuilder />
     </PageContainer>
   </Provider>
 );

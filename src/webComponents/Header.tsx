@@ -45,17 +45,13 @@ const HeaderSlash = styled.div`
   transform: skewY(${Math.tan(80 / window.innerWidth) * -(180 / Math.PI)}deg);
 `;
 
-export default () => {
-  // const { currentObjectTypeMode, setObjectTypeMode } = useStore();
-
-  return (
-    <>
-      <HeaderSolid>
-        <StyledLogo />
-        <HeaderSlashContainer>
-          <HeaderSlash />
-        </HeaderSlashContainer>
-      </HeaderSolid>
-    </>
-  );
-};
+export default () => (
+  <>
+    <HeaderSolid>
+      <StyledLogo />
+      <HeaderSlashContainer>
+        <HeaderSlash />
+      </HeaderSlashContainer>
+    </HeaderSolid>
+  </>
+);

@@ -1,13 +1,28 @@
 import React from "react";
 import { Button, Card, colors, variants } from "@headstorm/foundry-react-ui";
 import styled from "styled-components";
-import { mdiTrashCan } from "@mdi/js";
+import { mdiTrafficCone, mdiTruck, mdiTrashCan, mdiTableChair } from "@mdi/js";
 
 import useStore, { ObjectType } from "../utils/useStore";
 
-const objectTypeNames: { [key in string]: string } = {
-  cone: "Traffic Cone",
-  foodTruck: "Food Truck",
+type ObjectInfo = {
+  name: string;
+  icon: string;
+};
+
+const objectTypeNames: { [key in string]: ObjectInfo } = {
+  cone: {
+    name: "Traffic Cone",
+    icon: mdiTrafficCone,
+  },
+  foodTruck: {
+    name: "Food Truck",
+    icon: mdiTruck,
+  },
+  tables: {
+    name: "Table",
+    icon: mdiTableChair,
+  },
 };
 
 const StyledCardContainer = styled(Card.Container)`
@@ -67,6 +82,7 @@ export default () => {
           variant={
             currentObjectTypeMode === type ? variants.fill : variants.text
           }
+          iconPrefix={objectTypeNames[type].icon}
           color={colors.primaryDark}
           interactionFeedbackProps={{
             color:
@@ -82,7 +98,7 @@ export default () => {
             )
           }
         >
-          {objectTypeNames[type]}
+          {objectTypeNames[type].name}
         </Button>
       ))}
     </Card>

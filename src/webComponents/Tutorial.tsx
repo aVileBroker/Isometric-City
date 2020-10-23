@@ -16,9 +16,10 @@ import {
   mdiCursorMove,
 } from "@mdi/js";
 import { Canvas } from "react-three-fiber";
-import { Plane } from "drei";
+import { Plane, MapControls } from "drei";
 import { EffectComposer, SMAA } from "react-postprocessing";
 import { EdgeDetectionMode } from "postprocessing";
+import { MOUSE } from "three";
 
 import Mouse from "src/Objects/Mouse";
 import useStore from "src/utils/useStore";
@@ -135,6 +136,16 @@ export default () => {
             near: 1,
           }}
         >
+          <MapControls
+            enableZoom={false}
+            maxPolarAngle={0.5}
+            minPolarAngle={0.5}
+            mouseButtons={{
+              LEFT: MOUSE.MIDDLE,
+              MIDDLE: MOUSE.LEFT,
+              RIGHT: MOUSE.RIGHT,
+            }}
+          />
           <ambientLight intensity={0.8} />
           <directionalLight intensity={0.5} position={[-4, 2, -1]} />
           <directionalLight intensity={0.5} position={[0, -1.5, 5]} />

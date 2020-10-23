@@ -25,6 +25,8 @@ import Effects from "./Effects";
 export const focalDistanceAtom = atom([0, 0, 0]);
 const orthographic = true;
 
+const cityXOffset = -100; // this is to avoid the scene centering around 0,0,0 and seeing the SSAO bug
+
 const cityLayout = [
   [
     "road-nsew",
@@ -132,6 +134,7 @@ const getLot = (lot: string | null, rowInd: number, colInd: number) => {
 };
 
 export default () => {
+  const cameraRef = React.useRef();
   // @ts-expect-error
   const detectedGPU = useDetectGPU();
   const { currentObjectTypeMode, addObject } = useStore();
@@ -139,7 +142,8 @@ export default () => {
   return (
     <Canvas
       camera={{
-        position: [59, 90, -100],
+        ref: cameraRef,
+        position: [59 + cityXOffset, 90, -100],
         zoom: orthographic ? 14 : 1,
         near: camera.near,
         far: camera.far,
@@ -152,6 +156,7 @@ export default () => {
       style={{ height: "calc(100vh - 12rem)", width: "100%" }}
     >
       <MapControls
+        target={[cityXOffset, 0, 0]}
         enableZoom={false}
         maxPolarAngle={1}
         minPolarAngle={1}
@@ -169,7 +174,7 @@ export default () => {
       <ambientLight intensity={0.6} color="#DDF" />
       {/* Sun light */}
       <directionalLight
-        position={[-30, 100, -100]}
+        position={[-30 + cityXOffset, 100, -100]}
         color="#FFA"
         intensity={3}
         castShadow
@@ -186,7 +191,7 @@ export default () => {
 
       <Suspense fallback={null}>
         <Bridge value={useBridge()}>
-          <group position={[15, 0, 15]}>
+          <group position={[15 + cityXOffset, 0, 15]}>
             {cityLayout.map((row, rowInd) =>
               row.map((lot, colInd) => getLot(lot, rowInd, colInd))
             )}
@@ -208,7 +213,7 @@ export default () => {
             <meshPhysicalMaterial color="#282" />
           </Plane>
           <Physics size={500}>
-            <GroundPlane rotation={[Math.PI / -2, 0, 0]} />
+            <GroundPlane />
             <ObjectLayer layer={ObjectLayerType.kinetic} />
           </Physics>
           <ObjectLayer layer={ObjectLayerType.static} />

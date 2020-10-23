@@ -11,15 +11,12 @@ const FloatingArea = styled.div`
   right: 3rem;
 `;
 
-const ResetButtonContainer = styled(Button.Container)``;
-
 export default () => {
   const setTutorialState = useStore((state) => state.setTutorialState);
 
   return (
     <FloatingArea>
       <Button
-        StyledContainer={ResetButtonContainer}
         iconPrefix={mdiHelp}
         color="white"
         onClick={() => setTutorialState(true)}

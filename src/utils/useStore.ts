@@ -8,6 +8,7 @@ export enum ObjectLayerType {
 export enum ObjectType {
   cone = "cone",
   foodTruck = "foodTruck",
+  tables = "tables",
 }
 
 export type KurbObject = {
@@ -45,7 +46,8 @@ export default create<ObjectStore>((set, get) => ({
         tutorialOpen: newState,
       })
     ),
-  currentObjectTypeMode: ObjectType.cone,
+
+  currentObjectTypeMode: undefined,
   setObjectTypeMode: (objectType?: ObjectType) =>
     set(
       (state: ObjectStore): ObjectStore => ({
