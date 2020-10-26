@@ -8,6 +8,7 @@ import { Plane } from "drei";
 import GroundPlane from "src/Objects/GroundPlane";
 import Table from "src/Objects/Table";
 import Pizza from "src/Objects/Pizza";
+import Burger from "src/Objects/Burger";
 import Topping from "src/Objects/Topping";
 
 const SideBySide = styled.div`
@@ -90,7 +91,6 @@ export default () => {
                 : setFoodChoice("burger")
             }
             checked={foodChoice === "burger"}
-            disabled
           >
             Burger
           </Checkbox>
@@ -173,6 +173,7 @@ export default () => {
               <>
                 <Table position={[0, 2, 0]} />
                 {foodChoice === "pizza" && <Pizza position={[0, 3, 0]} />}
+                {foodChoice === "burger" && <Burger />}
                 {Object.values(toppings).map(
                   (key) =>
                     pizzaToppings[key] && <Topping {...pizzaToppings[key]} />
